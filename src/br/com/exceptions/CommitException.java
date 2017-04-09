@@ -2,6 +2,11 @@ package br.com.exceptions;
 
 public class CommitException extends Exception {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public CommitException() {
 		super();
 		// TODO Auto-generated constructor stub

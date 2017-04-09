@@ -42,7 +42,7 @@ public class Emprestimo {
 	private Usuario usuario;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
-	@JoinTable(name="EMPRESTIMO_EXEMPLAR", joinColumns={@JoinColumn(name="EMPRESTIMO_id")}, inverseJoinColumns={@JoinColumn(name="EXEMPLAR_id")})
+	@JoinTable(name="TB_EMPRESTIMO_EXEMPLAR", joinColumns={@JoinColumn(name="EMPRESTIMO_id")}, inverseJoinColumns={@JoinColumn(name="EXEMPLAR_id")})
 	private List<Exemplar> exemplares;
 
 	public Emprestimo(int codigo,Calendar dataEmprestimo, Calendar dataRetorno) {

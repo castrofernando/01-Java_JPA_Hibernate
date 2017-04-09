@@ -32,7 +32,7 @@ public class Editora {
 	@Column(name="endereco", nullable=true, length=400)
 	private String endereco;
 	
-	@OneToMany(mappedBy="editora" , cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="editora" ,cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
 	private List<Livro> livros;
 
 	public void adicionarLivro(Livro livro){

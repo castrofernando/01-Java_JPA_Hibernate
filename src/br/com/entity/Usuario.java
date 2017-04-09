@@ -32,7 +32,7 @@ public class Usuario {
 	@Column(name = "sobrenome", length = 300)
 	private String sobrenome;
 
-	@Column(name = "cpf", length = 20)
+	@Column(name = "cpf",nullable=false, length = 20)
 	private String cpf;
 	
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
