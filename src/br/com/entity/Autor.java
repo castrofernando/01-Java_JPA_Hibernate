@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -17,7 +19,8 @@ public class Autor {
 
 	@Id
 	@Column(name="id")
-	private int id;
+	@GeneratedValue(generator="seqAutor", strategy=GenerationType.SEQUENCE)
+	private int codigo;
 	
 	@Column(name="nome", nullable=false, length=300)
 	private String nome;
@@ -45,11 +48,11 @@ public class Autor {
 	}
 
 	public int getId() {
-		return id;
+		return codigo;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.codigo = id;
 	}
 
 	public String getNome() {
