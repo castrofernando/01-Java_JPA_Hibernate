@@ -1,10 +1,17 @@
 package br.com.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +33,21 @@ public class Livro {
 	private Calendar dataLancamento;
 	
 	private byte[] capa;
+
+	@ManyToMany(mappedBy="livros")
+	private List<Autor> autores;
+	
+	@ManyToOne
+	@JoinColumn(name="EDITORA_id")
+	private Editora editora;
+	
+	@OneToMany(mappedBy="livro", cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	private List<Exemplar> exemplares;
+	
+	public void adicionarExemplar(Exemplar exemplar){
+		exemplar.setLivro(this);
+		exemplares.add(exemplar);
+	}
 
 	public Livro(int isnb, String titulo, float preco, Calendar dataLancamento, byte[] capa) {
 		super();
@@ -80,4 +102,27 @@ public class Livro {
 		this.capa = capa;
 	}
 	
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+
+	public Editora getEditora() {
+		return editora;
+	}
+
+	public void setEditora(Editora editora) {
+		this.editora = editora;
+	}
+
+	public List<Exemplar> getExemplares() {
+		return exemplares;
+	}
+
+	public void setExemplares(List<Exemplar> exemplares) {
+		this.exemplares = exemplares;
+	}
 }

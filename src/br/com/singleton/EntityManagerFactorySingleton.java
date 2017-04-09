@@ -24,7 +24,7 @@ public class EntityManagerFactorySingleton {
 	 */
 	public static EntityManagerFactory getInstance() {
 		if (fabrica == null) {
-			fabrica = Persistence.createEntityManagerFactory("ORACLE_DB");
+			fabrica = Persistence.createEntityManagerFactory("ORACLE_BD");
 		}
 		return fabrica;
 	}

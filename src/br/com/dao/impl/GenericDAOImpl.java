@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import br.com.dao.GenericDAO;
 import br.com.exceptions.CommitException;
-import br.com.exceptions.IdNotFoundExeption;
+import br.com.exceptions.IdNotFoundException;
 
 public class GenericDAOImpl<T,K> implements GenericDAO<T,K> {
 
@@ -30,10 +30,10 @@ public class GenericDAOImpl<T,K> implements GenericDAO<T,K> {
 		em.merge(entidade);
 	}
 
-	public void remover(K id) throws IdNotFoundExeption {
+	public void remover(K id) throws IdNotFoundException {
 		T entidade = this.buscar(id);
 		if(entidade==null){
-			throw new IdNotFoundExeption("Id não encontrado");
+			throw new IdNotFoundException("Id não encontrado");
 		}
 		em.remove(entidade);
 	}

@@ -1,10 +1,15 @@
 package br.com.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,6 +32,14 @@ public class Editora {
 	@Column(name="endereco", nullable=true, length=400)
 	private String endereco;
 	
+	@OneToMany(mappedBy="editora" , cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	private List<Livro> livros;
+
+	public void adicionarLivro(Livro livro){
+		livro.setEditora(this);
+		livros.add(livro);
+	}
+	
 	public Editora() {
 		super();
 	}
@@ -42,7 +55,7 @@ public class Editora {
 	public int getCodigo() {
 		return codigo;
 	}
-
+	
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
@@ -71,4 +84,11 @@ public class Editora {
 		this.endereco = endereco;
 	}
 	
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
 }

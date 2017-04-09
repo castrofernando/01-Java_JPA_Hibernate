@@ -1,39 +1,50 @@
 package br.com.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="TB_AUTOR")
-@SequenceGenerator(allocationSize=1, name="seqAutor", sequenceName="SQ_AUTOR")
+@Table(name = "TB_AUTOR")
+@SequenceGenerator(allocationSize = 1, name = "seqAutor", sequenceName = "SQ_AUTOR")
 public class Autor {
 
 	@Id
-	@Column(name="id")
-	@GeneratedValue(generator="seqAutor", strategy=GenerationType.SEQUENCE)
+	@Column(name = "id")
+	@GeneratedValue(generator = "seqAutor", strategy = GenerationType.SEQUENCE)
 	private int codigo;
-	
-	@Column(name="nome", nullable=false, length=300)
+
+	@Column(name = "nome", nullable = false, length = 300)
 	private String nome;
-	
-	@Column(name="sexo", nullable=false)
+
+	@Column(name = "sexo", nullable = false)
 	private Sexo sexo;
-	
-	@Column(name="sobrenome", nullable=false, length=300)
+
+	@Column(name = "sobrenome", nullable = false, length = 300)
 	private String sobrenome;
-	
-	@Column(name="dt_nascimento")
+
+	@Column(name = "dt_nascimento")
 	@Temporal(TemporalType.DATE)
 	private Calendar dataNascimento;
+
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	@JoinTable(name = "TB_AUTOR_LIVRO", joinColumns = { @JoinColumn(name = "AUTOR_id") }, inverseJoinColumns = {
+	@JoinColumn(name = "LIVRO_isnb") })
+	private List<Livro> livros;
 
 	public Autor(String nome, Sexo sexo, String sobrenome, Calendar dataNascimento) {
 		super();
@@ -47,11 +58,11 @@ public class Autor {
 		super();
 	}
 
-	public int getId() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setId(int id) {
+	public void setCodigo(int id) {
 		this.codigo = id;
 	}
 
@@ -85,5 +96,13 @@ public class Autor {
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
 	}
 }

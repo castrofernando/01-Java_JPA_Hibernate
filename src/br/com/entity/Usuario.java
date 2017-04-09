@@ -1,10 +1,15 @@
 package br.com.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,9 +34,18 @@ public class Usuario {
 
 	@Column(name = "cpf", length = 20)
 	private String cpf;
+	
+	@OneToMany(mappedBy="usuario", cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+	private List<Emprestimo> emprestimos;
+	
+	public void adicionarEmprestimo(Emprestimo emprestimo){
+		emprestimo.setUsuario(this);
+		emprestimos.add(emprestimo);
+	}
 
-	public Usuario(String usuario, String nome, String sobrenome, String cpf) {
+	public Usuario(int codigo, String usuario, String nome, String sobrenome, String cpf) {
 		super();
+		this.codigo = codigo;
 		this.usuario = usuario;
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -80,5 +94,14 @@ public class Usuario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimo) {
+		this.emprestimos = emprestimo;
+	}
+
 
 }
